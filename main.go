@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func less(a, b []string) bool {
-	la, lb := len(a), len(b)
+	la, lb, min := len(a), len(b), 0
 	if la == 0 && lb == 0 {
 		return false
 	} else if la == 0 && lb > 0 {
@@ -12,8 +12,7 @@ func less(a, b []string) bool {
 		return false
 	}
 
-	min := la
-	if lb < la {
+	if min = la; la > lb {
 		min = lb
 	}
 	for i := 0; i < min; i++ {
@@ -23,10 +22,10 @@ func less(a, b []string) bool {
 			return false
 		}
 	}
+
 	if la == lb {
 		return false
 	}
-
 	return la < lb
 }
 
@@ -34,6 +33,8 @@ func main() {
 	ll := [][]string{
 		{"a", "b", "c"},
 		{"a", "b"},
+		{"a", "a"},
+		{"a", "c"},
 		{"b"},
 		{"b", "a"},
 		{"c"},
@@ -48,6 +49,7 @@ func main() {
 				op = "≥"
 			}
 
+			// fmt.Printf("%v %s %v\n", ll[i], op, ll[j])
 			fmt.Printf("%v %s %v\n", ll[i], op, ll[j])
 		}
 	}
