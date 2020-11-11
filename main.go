@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func less(a, b []string) bool {
 	la, lb, min := len(a), len(b), 0
@@ -29,6 +32,19 @@ func less(a, b []string) bool {
 	return la < lb
 }
 
+// {[]string{"a", "b", "c"}, []string{"a", "b", "c"}, false},
+func strSlice(a []string) string {
+	var sb strings.Builder
+	sb.WriteString(`[]string{`)
+
+	for _, v := range a {
+		sb.WriteString(fmt.Sprintf("%q,", v))
+	}
+
+	sb.WriteString(`}`)
+	return sb.String()
+}
+
 func main() {
 	ll := [][]string{
 		{"a", "b", "c"},
@@ -39,18 +55,19 @@ func main() {
 		{"b", "a"},
 		{"c"},
 		{""},
+		{},
 	}
 	for i := range ll {
 		for j := range ll {
 			var op string
 			if less(ll[i], ll[j]) {
-				op = "<"
+				op = "true"
 			} else {
-				op = "≥"
+				op = "false"
 			}
 
 			// fmt.Printf("%v %s %v\n", ll[i], op, ll[j])
-			fmt.Printf("%v %s %v\n", ll[i], op, ll[j])
+			fmt.Printf("{%s, %s, %s},\n", strSlice(ll[i]), strSlice(ll[j]), op)
 		}
 	}
 }
